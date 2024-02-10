@@ -1,0 +1,48 @@
+{
+  "name": "lumina-design-system",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "author": "ShivaBansfore-JGEC",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@storybook/addon-essentials": "^7.6.13",
+    "@storybook/addon-interactions": "^7.6.13",
+    "@storybook/addon-links": "^7.6.13",
+    "@storybook/addon-onboarding": "1.0.11",
+    "@storybook/blocks": "^7.6.13",
+    "@storybook/react": "^7.6.13",
+    "@storybook/react-webpack5": "^7.6.13",
+    "@storybook/test": "^7.6.13",
+    "@types/react": "^18.2.55",
+    "babel-preset-react-app": "^10.0.1",
+    "postcss": "^8.4.35",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.9.6",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "storybook": "^7.6.13",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "classnames": "^2.5.1"
+  }
+}
