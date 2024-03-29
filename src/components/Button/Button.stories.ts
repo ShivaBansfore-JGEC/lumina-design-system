@@ -32,3 +32,11 @@ export const Secondary: Story = {
     label: "Secondary 😇",
   },
 };
+
+export const Tertairy: Story = {
+  args: {
+    ...Primary.args,
+    type: "tertiary",
+    label: "Secondary 😇",
+  },
+};

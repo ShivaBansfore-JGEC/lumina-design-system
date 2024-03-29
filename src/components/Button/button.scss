@@ -1,3 +1,75 @@
-.start-button{
-    border: 1px solid red;
+@import "../../styles/function.scss";
+
+.ds-button{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff; /* Text color */
+    background-color: #007bff; /* Default background color */
+    &:hover{
+        background-color: #0056b3; /* Hover background color */
+    }
+    &:active{
+        background-color: #003d80;
+    }
+
+}
+.ds-button-secondary{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid #007bff; /* Border color matches primary button color */
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    color: #007bff; /* Text color matches primary button color */
+    background-color: transparent;
+    &:hover{
+        color: #0056b3; /* Hover text color */
+        background-color: rgba(0, 123, 255, 0.1); /* Hover background color */
+        border-color: #0056b3; /* Hover border color */
+    }
+}
+
+.ds-button-tertiary{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid transparent; /* Border color transparent */
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    color: #007bff; /* Text color */
+    background-color: transparent;
+    &:hover{
+        color: #0056b3; /* Hover text color */
+        background-color: rgba(0, 123, 255, 0.1); /* Hover background color */
+        border-color: #007bff; /* Hover border color */
+    }
+    &:active{
+        color: #003d80; /* Active text color */
+        background-color: rgba(0, 123, 255, 0.2); /* Active background color */
+        border-color: #003d80; /* Active border color */
+    }
+}
+
+.ds-button-small{
+    padding: rem(8);
+}
+
+.ds-button-medium{
+    padding: rem(10);
 }

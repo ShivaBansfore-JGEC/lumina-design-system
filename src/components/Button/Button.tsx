@@ -6,7 +6,7 @@ export interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "tertiary";
   /**
    * What background color to use
    */
@@ -38,7 +38,7 @@ const Button = ({
   return (
     <button
       type="button"
-      className="start-button"
+      className={classNames(`ds-button ds-button-${type} ds-button-${size}`)}
       style={textColor ? { color: textColor } : {}}
       onClick={onClick}
     >
@@ -46,5 +46,9 @@ const Button = ({
     </button>
   );
 };
+
+Button.defaultProps = {
+
+}
 
 export default Button;

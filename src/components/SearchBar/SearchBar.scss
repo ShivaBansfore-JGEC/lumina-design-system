@@ -1,0 +1,28 @@
+@import "../../styles/function.scss";
+.search-bar{
+    width: 100%;
+    &-input{
+        border: 1px solid #cccccc;
+        width: 100%;
+        border-radius: 4px;
+        outline: none;
+        height: rem(32);
+        padding: 0px 8px;
+        &:active{
+            border: 1px solid blue;
+        }
+        &:focus{
+            border: 1px solid blue;
+            outline: none;
+        }
+    }
+    &-input-medium{
+        width: rem(500);
+    }
+    &-input-small{
+        width: rem(400);
+    }
+    &-input-large{
+        width: 100%;
+    }
+}
