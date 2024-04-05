@@ -1,5 +1,6 @@
 import React from 'react';
 import { GENERAL_DATA_TYPES, GENERAL_EVENTS } from '../types/types';
+import Typography from '../Typography/Typography';
 
 type listItems = {
     id: GENERAL_DATA_TYPES[`NUMBER`],
@@ -16,7 +17,10 @@ const Suggesstion = (props: Props) => {
     const renderSuggestionList = () => {
         if (!suggessionList?.length) return null;
         return suggessionList.map(element => (
-            <div className='suggesion-list-item'>{element.label}</div>
+            <div className='suggesion-list-item'>
+                <Typography type='body-5'>{element.label}</Typography>
+
+            </div>
         ))
     }
 

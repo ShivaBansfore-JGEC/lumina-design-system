@@ -1,0 +1,57 @@
+@import "../../styles/function.scss";
+@import "../../styles/mixins.scss";
+
+.ds-typography{
+    &-heading-1{
+        @include typography(rem(56), 500, rem(52))
+    }
+    &-heading-2{
+        @include typography(rem(36), 500, rem(32))
+    }
+    &-heading-3{
+        @include typography(rem(24), 500, rem(20))
+    }
+    &-heading-4{
+        @include typography(rem(16), 500, rem(14))
+    }
+    &-heading-5{
+        @include typography(rem(14), 500, rem(12))
+    }
+
+    &-heading-6{
+        @include typography(rem(12), 500, rem(10))
+    }
+    &-heading-7{
+        @include typography(rem(8), 500, rem(6))
+    }
+
+    &-body-1{
+        @include typography(rem(56), 400, rem(52))
+    }
+    &-body-2{
+        @include typography(rem(36), 400, rem(32))
+    }
+    &-body-3{
+        @include typography(rem(24), 400, rem(20))
+    }
+    &-body-4{
+        @include typography(rem(16), 400, rem(14));
+    }
+    &-body-5{
+        @include typography(rem(14), 400, rem(12))
+    }
+
+    &-body-6{
+        @include typography(rem(12), 400, rem(10))
+    }
+    &-body-7{
+        @include typography(rem(8), 400, rem(6))
+    }
+    &-tertiary-text{
+        color: #888; /* Use a muted color */
+        font-size: 14px; /* Adjust the font size as needed */
+        font-weight: normal; /* You can use 'normal' or 'lighter' for lighter weight */
+    }
+
+
+}

@@ -6,6 +6,7 @@ import "./TypeHead.scss";
 import Suggesstion from "./Suggesstion";
 import useTypeHeadSuggestions from "./useTypeHeadSuggession";
 import SearchBar from "../SearchBar/SearchBar";
+import Button from "../Button";
 type listItems = {
   id: GENERAL_DATA_TYPES[`NUMBER`],
   label: GENERAL_DATA_TYPES["STRING"],
@@ -35,7 +36,10 @@ const TypeHead = (props: TypeHeadProps) => {
   const renderFooter = () => {
     const label = showAllResults ? "See less" : "See more"
     if (!suggestionList.length || (listItems.length <= suggestionList.length && !showAllResults)) return null;
-    return <div className="type-head-body-footer" onClick={() => setShowAllResults(state => !state)}><span className="cursor-pointer">{label}</span></div>
+    return <div className="type-head-body-footer" onClick={() => setShowAllResults(state => !state)}>
+      <Button label={label} type="tertiary" />
+      {/* <span className="cursor-pointer">{label}</span> */}
+    </div>
   }
 
   const renderBody = () => {

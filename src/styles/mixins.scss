@@ -1,0 +1,6 @@
+@mixin typography($fontSize, $fontWeight, $lineHight, $fontFamily: "arial"){
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    line-height: $lineHight;
+    font-family: $fontFamily;
+}
