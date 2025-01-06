@@ -76,6 +76,9 @@ const colors = {
     darkBorderColor: '#999999',
     lightBorderColor: '#e5e5e5',
     transparentBorderColor: 'transparent',
+
+    //extra color
+    greyHover: "#f1f1f1"
 };
 
 export default colors;

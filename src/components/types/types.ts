@@ -14,6 +14,10 @@ export type GENERAL_DATA_TYPES = {
   ARRAY: any[]; // You can specify a more specific type if needed
 };
 
+export type OnChangeEvent = React.ChangeEventHandler<HTMLInputElement>
+
+
+
 
 
 

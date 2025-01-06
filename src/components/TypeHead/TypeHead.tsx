@@ -7,6 +7,7 @@ import Suggesstion from "./Suggesstion";
 import useTypeHeadSuggestions from "./useTypeHeadSuggession";
 import SearchBar from "../SearchBar/SearchBar";
 import Button from "../Button";
+import Popover from "../Popover/Popover";
 type listItems = {
   id: GENERAL_DATA_TYPES[`NUMBER`],
   label: GENERAL_DATA_TYPES["STRING"],
@@ -44,6 +45,9 @@ const TypeHead = (props: TypeHeadProps) => {
 
   const renderBody = () => {
     if (!searchValue?.length || !suggestionList?.length) return null;
+    return <Popover>
+      <Suggesstion suggessionList={suggestionList} />
+    </Popover>
     return <div className={classNames(`type-head-body type-head-body-${size}`)}>
       <Suggesstion suggessionList={suggestionList} />
       {renderFooter()}
