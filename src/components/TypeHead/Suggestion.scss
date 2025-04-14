@@ -1,0 +1,129 @@
+@import "../../styles/function.scss";
+
+.ds-suggestion-list {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--ds-color-white);
+    border-radius: var(--ds-border-radius-md);
+    box-shadow: var(--ds-shadow-md);
+    padding: rem(8);
+
+    &::-webkit-scrollbar {
+        width: rem(8);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--ds-color-gray-100);
+        border-radius: rem(4);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--ds-color-gray-300);
+        border-radius: rem(4);
+
+        &:hover {
+            background: var(--ds-color-gray-400);
+        }
+    }
+}
+
+.ds-suggestion-group {
+    &:not(:last-child) {
+        margin-bottom: rem(16);
+    }
+}
+
+.ds-suggestion-category {
+    padding: rem(8) rem(12);
+    color: var(--ds-color-gray-600);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ds-suggestion-item {
+    display: flex;
+    align-items: flex-start;
+    padding: rem(8) rem(12);
+    cursor: pointer;
+    border-radius: var(--ds-border-radius-sm);
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: var(--ds-color-gray-100);
+    }
+
+    &--selected {
+        background-color: var(--ds-color-primary-100);
+        color: var(--ds-color-primary-700);
+    }
+
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+.ds-suggestion-icon {
+    margin-right: rem(12);
+    display: flex;
+    align-items: center;
+    color: var(--ds-color-gray-600);
+    font-size: rem(20);
+}
+
+.ds-suggestion-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.ds-suggestion-label {
+    color: var(--ds-color-gray-900);
+    margin-bottom: rem(2);
+    font-weight: 500;
+}
+
+.ds-suggestion-description {
+    color: var(--ds-color-gray-600);
+    font-size: rem(12);
+    line-height: 1.4;
+}
+
+.ds-suggestion-highlight {
+    background-color: var(--ds-color-warning-200);
+    color: var(--ds-color-warning-900);
+    padding: 0 rem(2);
+    border-radius: rem(2);
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .ds-suggestion-list {
+        background-color: var(--ds-color-gray-800);
+    }
+
+    .ds-suggestion-item {
+        &:hover {
+            background-color: var(--ds-color-gray-700);
+        }
+
+        &--selected {
+            background-color: var(--ds-color-primary-900);
+            color: var(--ds-color-primary-100);
+        }
+    }
+
+    .ds-suggestion-label {
+        color: var(--ds-color-gray-100);
+    }
+
+    .ds-suggestion-description {
+        color: var(--ds-color-gray-400);
+    }
+
+    .ds-suggestion-highlight {
+        background-color: var(--ds-color-warning-900);
+        color: var(--ds-color-warning-100);
+    }
+} 

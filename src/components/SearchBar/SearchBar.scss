@@ -1,28 +1,340 @@
 @import "../../styles/function.scss";
-.search-bar{
+
+// Variables
+$search-bar-height-small: rem(32);
+$search-bar-height-medium: rem(40);
+$search-bar-height-large: rem(48);
+
+$search-bar-padding-small: 0 rem(8);
+$search-bar-padding-medium: 0 rem(12);
+$search-bar-padding-large: 0 rem(16);
+
+$search-bar-font-size-small: rem(14);
+$search-bar-font-size-medium: rem(16);
+$search-bar-font-size-large: rem(18);
+
+$search-bar-icon-size-small: rem(16);
+$search-bar-icon-size-medium: rem(18);
+$search-bar-icon-size-large: rem(20);
+
+$search-bar-border-radius-rounded: rem(4);
+$search-bar-border-radius-pill: rem(50);
+$search-bar-border-radius-square: 0;
+
+$search-bar-border-color: #e0e0e0;
+$search-bar-border-color-focused: #2196f3;
+$search-bar-border-color-error: #f44336;
+$search-bar-background-color: #ffffff;
+$search-bar-background-color-filled: #f5f5f5;
+$search-bar-background-color-disabled: #f5f5f5;
+$search-bar-text-color: #333333;
+$search-bar-text-color-disabled: #9e9e9e;
+$search-bar-placeholder-color: #9e9e9e;
+$search-bar-icon-color: #757575;
+$search-bar-icon-color-focused: #2196f3;
+$search-bar-icon-color-error: #f44336;
+$search-bar-message-color: #757575;
+$search-bar-error-message-color: #f44336;
+
+// Base styles
+.ds-search-bar {
+  position: relative;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  // Input wrapper
+  &-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
-    &-input{
-        border: 1px solid #cccccc;
-        width: 100%;
-        border-radius: 4px;
-        outline: none;
-        height: rem(32);
-        padding: 0px 8px;
-        &:active{
-            border: 1px solid blue;
-        }
-        &:focus{
-            border: 1px solid blue;
-            outline: none;
-        }
+    transition: all 0.2s ease-in-out;
+    
+    // Search icon
+    .search-icon {
+      position: absolute;
+      left: rem(12);
+      color: $search-bar-icon-color;
+      transition: color 0.2s ease-in-out;
     }
-    &-input-medium{
-        width: rem(500);
+    
+    // Loading spinner
+    .search-loading-spinner {
+      position: absolute;
+      right: rem(12);
+      color: $search-bar-icon-color;
+      animation: spin 1s linear infinite;
     }
-    &-input-small{
-        width: rem(400);
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    &-input-large{
-        width: 100%;
+  }
+  
+  // Input field
+  &-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: $search-bar-text-color;
+    font-size: $search-bar-font-size-medium;
+    padding: $search-bar-padding-medium;
+    padding-left: rem(40);
+    transition: all 0.2s ease-in-out;
+    
+    &::placeholder {
+      color: $search-bar-placeholder-color;
     }
+    
+    &:disabled {
+      cursor: not-allowed;
+      color: $search-bar-text-color-disabled;
+      
+      &::placeholder {
+        color: $search-bar-text-color-disabled;
+      }
+    }
+  }
+  
+  // Clear button
+  &-clear-button {
+    position: absolute;
+    right: rem(12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(20);
+    height: rem(20);
+    border: none;
+    background: transparent;
+    color: $search-bar-icon-color;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    
+    &:hover {
+      color: darken($search-bar-icon-color, 10%);
+    }
+  }
+  
+  // Message (helper text or error)
+  &-message {
+    margin-top: rem(4);
+    font-size: rem(12);
+    color: $search-bar-message-color;
+  }
+  
+  &-error-message {
+    color: $search-bar-error-message-color;
+  }
+  
+  // Sizes
+  &-small {
+    .ds-search-bar-input {
+      height: $search-bar-height-small;
+      font-size: $search-bar-font-size-small;
+      padding: $search-bar-padding-small;
+      padding-left: rem(36);
+    }
+    
+    .search-icon {
+      width: $search-bar-icon-size-small;
+      height: $search-bar-icon-size-small;
+      left: rem(10);
+    }
+    
+    .ds-search-bar-clear-button {
+      width: rem(16);
+      height: rem(16);
+      right: rem(10);
+    }
+  }
+  
+  &-medium {
+    .ds-search-bar-input {
+      height: $search-bar-height-medium;
+      font-size: $search-bar-font-size-medium;
+      padding: $search-bar-padding-medium;
+      padding-left: rem(40);
+    }
+    
+    .search-icon {
+      width: $search-bar-icon-size-medium;
+      height: $search-bar-icon-size-medium;
+      left: rem(12);
+    }
+    
+    .ds-search-bar-clear-button {
+      width: rem(20);
+      height: rem(20);
+      right: rem(12);
+    }
+  }
+  
+  &-large {
+    .ds-search-bar-input {
+      height: $search-bar-height-large;
+      font-size: $search-bar-font-size-large;
+      padding: $search-bar-padding-large;
+      padding-left: rem(44);
+    }
+    
+    .search-icon {
+      width: $search-bar-icon-size-large;
+      height: $search-bar-icon-size-large;
+      left: rem(14);
+    }
+    
+    .ds-search-bar-clear-button {
+      width: rem(24);
+      height: rem(24);
+      right: rem(14);
+    }
+  }
+  
+  // Variants
+  &-outlined {
+    .ds-search-bar-input-wrapper {
+      border: 1px solid $search-bar-border-color;
+      border-radius: $search-bar-border-radius-rounded;
+      background-color: $search-bar-background-color;
+    }
+    
+    &.ds-search-bar-focused {
+      .ds-search-bar-input-wrapper {
+        border-color: $search-bar-border-color-focused;
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-focused;
+      }
+    }
+    
+    &.ds-search-bar-error {
+      .ds-search-bar-input-wrapper {
+        border-color: $search-bar-border-color-error;
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-error;
+      }
+    }
+    
+    &.ds-search-bar-disabled {
+      .ds-search-bar-input-wrapper {
+        background-color: $search-bar-background-color-disabled;
+        border-color: $search-bar-border-color;
+      }
+    }
+  }
+  
+  &-filled {
+    .ds-search-bar-input-wrapper {
+      border: none;
+      border-radius: $search-bar-border-radius-rounded;
+      background-color: $search-bar-background-color-filled;
+    }
+    
+    &.ds-search-bar-focused {
+      .ds-search-bar-input-wrapper {
+        background-color: darken($search-bar-background-color-filled, 2%);
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-focused;
+      }
+    }
+    
+    &.ds-search-bar-error {
+      .ds-search-bar-input-wrapper {
+        background-color: rgba($search-bar-border-color-error, 0.1);
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-error;
+      }
+    }
+    
+    &.ds-search-bar-disabled {
+      .ds-search-bar-input-wrapper {
+        background-color: $search-bar-background-color-disabled;
+      }
+    }
+  }
+  
+  &-underlined {
+    .ds-search-bar-input-wrapper {
+      border: none;
+      border-bottom: 1px solid $search-bar-border-color;
+      border-radius: 0;
+      background-color: transparent;
+    }
+    
+    &.ds-search-bar-focused {
+      .ds-search-bar-input-wrapper {
+        border-bottom-color: $search-bar-border-color-focused;
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-focused;
+      }
+    }
+    
+    &.ds-search-bar-error {
+      .ds-search-bar-input-wrapper {
+        border-bottom-color: $search-bar-border-color-error;
+      }
+      
+      .search-icon {
+        color: $search-bar-icon-color-error;
+      }
+    }
+    
+    &.ds-search-bar-disabled {
+      .ds-search-bar-input-wrapper {
+        border-bottom-color: $search-bar-border-color;
+        background-color: transparent;
+      }
+    }
+  }
+  
+  // Shapes
+  &-rounded {
+    .ds-search-bar-input-wrapper {
+      border-radius: $search-bar-border-radius-rounded;
+    }
+  }
+  
+  &-pill {
+    .ds-search-bar-input-wrapper {
+      border-radius: $search-bar-border-radius-pill;
+    }
+  }
+  
+  &-square {
+    .ds-search-bar-input-wrapper {
+      border-radius: $search-bar-border-radius-square;
+    }
+  }
+  
+  // Focused state
+  &-focused {
+    .ds-search-bar-input-wrapper {
+      box-shadow: 0 0 0 2px rgba($search-bar-border-color-focused, 0.2);
+    }
+  }
+  
+  // Disabled state
+  &-disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  // Error state
+  &-error {
+    .ds-search-bar-input-wrapper {
+      box-shadow: 0 0 0 2px rgba($search-bar-border-color-error, 0.2);
+    }
+  }
 }

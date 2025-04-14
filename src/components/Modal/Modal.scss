@@ -1,0 +1,200 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.ds-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(9, 30, 66, 0.54);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 48px 20px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+
+    &.open {
+        opacity: 1;
+    }
+
+    &.fade {
+        .ds-modal {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+    }
+
+    &.slide {
+        .ds-modal {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+    }
+
+    &.zoom {
+        .ds-modal {
+            animation: zoomIn 0.2s ease-out forwards;
+        }
+    }
+}
+
+.ds-modal {
+    background: var(--ds-background-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 
+                0 0 1px rgba(9, 30, 66, 0.31);
+    width: 100%;
+    max-height: calc(100vh - 96px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    outline: none;
+
+    &.size-sm { max-width: 400px; }
+    &.size-md { max-width: 600px; }
+    &.size-lg { max-width: 800px; }
+    &.size-xl { max-width: 1140px; }
+    &.size-full { max-width: calc(100vw - 40px); }
+
+    &.position-top {
+        margin-top: 48px;
+        align-self: flex-start;
+    }
+
+    &.position-center {
+        margin: auto;
+    }
+}
+
+.ds-modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    outline: none;
+}
+
+.ds-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--ds-border-color, #dfe1e6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+
+    .ds-modal-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--ds-text-color, #172b4d);
+        line-height: 1.2;
+    }
+
+    .ds-modal-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+}
+
+.ds-modal-close {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--ds-text-secondary-color, #6b778c);
+    font-size: 24px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--ds-hover-background-color, #ebecf0);
+        color: var(--ds-text-color, #172b4d);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--ds-focus-ring-color, rgba(76, 154, 255, 0.2));
+    }
+}
+
+.ds-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+    color: var(--ds-text-color, #172b4d);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ds-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--ds-border-color, #dfe1e6);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.ds-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+    .ds-modal-overlay {
+        padding: 16px;
+    }
+
+    .ds-modal {
+        max-height: calc(100vh - 32px);
+
+        &.size-sm,
+        &.size-md,
+        &.size-lg,
+        &.size-xl {
+            max-width: 100%;
+        }
+    }
+
+    .ds-modal-header {
+        padding: 16px 20px;
+
+        .ds-modal-title {
+            font-size: 18px;
+        }
+    }
+
+    .ds-modal-body {
+        padding: 20px;
+    }
+
+    .ds-modal-footer {
+        padding: 12px 20px;
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .ds-modal-overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+} 

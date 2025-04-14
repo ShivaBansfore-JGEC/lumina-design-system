@@ -53,5 +53,81 @@
         font-weight: normal; /* You can use 'normal' or 'lighter' for lighter weight */
     }
 
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    
+    // Font weights
+    &.ds-typography-light {
+        font-weight: 300;
+    }
+    
+    &.ds-typography-regular {
+        font-weight: 400;
+    }
+    
+    &.ds-typography-medium {
+        font-weight: 500;
+    }
+    
+    &.ds-typography-semibold {
+        font-weight: 600;
+    }
+    
+    &.ds-typography-bold {
+        font-weight: 700;
+    }
+    
+    // Text alignment
+    &.ds-typography-left {
+        text-align: left;
+    }
+    
+    &.ds-typography-center {
+        text-align: center;
+    }
+    
+    &.ds-typography-right {
+        text-align: right;
+    }
+    
+    &.ds-typography-justify {
+        text-align: justify;
+    }
+    
+    // Text transforms
+    &.ds-typography-uppercase {
+        text-transform: uppercase;
+    }
+    
+    &.ds-typography-lowercase {
+        text-transform: lowercase;
+    }
+    
+    &.ds-typography-capitalize {
+        text-transform: capitalize;
+    }
+    
+    // Text decorations
+    &.ds-typography-italic {
+        font-style: italic;
+    }
+    
+    &.ds-typography-underline {
+        text-decoration: underline;
+    }
+    
+    &.ds-typography-strikethrough {
+        text-decoration: line-through;
+    }
+    
+    // Font families
+    &.ds-typography-monospace {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    
+    // Text wrapping
 
 }

@@ -1,75 +1,195 @@
 @import "../../styles/function.scss";
 
-.ds-button{
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
+// Base button styles
+.ds-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
     text-align: center;
     text-decoration: none;
-    border-radius: 5px;
-    border: none;
+    border-radius: 4px;
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #fff; /* Text color */
-    background-color: #007bff; /* Default background color */
-    &:hover{
-        background-color: #0056b3; /* Hover background color */
-    }
-    &:active{
-        background-color: #003d80;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    user-select: none;
+    white-space: nowrap;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     }
 
-}
-.ds-button-secondary{
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 2px solid #007bff; /* Border color matches primary button color */
-    cursor: pointer;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-    color: #007bff; /* Text color matches primary button color */
-    background-color: transparent;
-    &:hover{
-        color: #0056b3; /* Hover text color */
-        background-color: rgba(0, 123, 255, 0.1); /* Hover background color */
-        border-color: #0056b3; /* Hover border color */
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    // Size variants
+    &.ds-button-small {
+        padding: 4px 12px;
+        font-size: 12px;
+    }
+
+    &.ds-button-medium {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    &.ds-button-large {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    // Full width variant
+    &.ds-button-full-width {
+        width: 100%;
+    }
+
+    // Loading state
+    &.ds-button-loading {
+        cursor: wait;
+        .ds-button-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            animation: button-spin 1s linear infinite;
+            
+            svg {
+                width: 100%;
+                height: 100%;
+                stroke: currentColor;
+                stroke-dasharray: 60;
+                stroke-dashoffset: 60;
+                animation: button-circle 1.5s ease-in-out infinite;
+            }
+        }
+    }
+
+    // Icon styles
+    .ds-button-icon-left,
+    .ds-button-icon-right {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ds-button-icon-left {
+        margin-right: 4px;
+    }
+
+    .ds-button-icon-right {
+        margin-left: 4px;
     }
 }
 
-.ds-button-tertiary{
-    display: inline-block;
-    padding: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 2px solid transparent; /* Border color transparent */
-    cursor: pointer;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-    color: #007bff; /* Text color */
-    background-color: transparent;
-    &:hover{
-        color: #0056b3; /* Hover text color */
-        background-color: rgba(0, 123, 255, 0.1); /* Hover background color */
-        border-color: #007bff; /* Hover border color */
+// Type variants
+@mixin button-type($color, $hover-color, $active-color) {
+    &.ds-button-solid {
+        background-color: $color;
+        color: white;
+        &:hover:not(:disabled) {
+            background-color: $hover-color;
+        }
+        &:active:not(:disabled) {
+            background-color: $active-color;
+        }
     }
-    &:active{
-        color: #003d80; /* Active text color */
-        background-color: rgba(0, 123, 255, 0.2); /* Active background color */
-        border-color: #003d80; /* Active border color */
+
+    &.ds-button-outline {
+        background-color: transparent;
+        border-color: $color;
+        color: $color;
+        &:hover:not(:disabled) {
+            background-color: rgba($color, 0.1);
+        }
+        &:active:not(:disabled) {
+            background-color: rgba($color, 0.2);
+        }
+    }
+
+    &.ds-button-text {
+        background-color: transparent;
+        color: $color;
+        &:hover:not(:disabled) {
+            background-color: rgba($color, 0.1);
+        }
+        &:active:not(:disabled) {
+            background-color: rgba($color, 0.2);
+        }
+    }
+
+    &.ds-button-ghost {
+        background-color: transparent;
+        color: $color;
+        &:hover:not(:disabled) {
+            background-color: rgba($color, 0.1);
+        }
+        &:active:not(:disabled) {
+            background-color: rgba($color, 0.2);
+        }
     }
 }
 
-.ds-button-small{
-    padding: rem(8);
+// Primary button
+.ds-button-primary {
+    @include button-type(#007bff, #0056b3, #003d80);
 }
 
-.ds-button-medium{
-    padding: rem(10);
+// Secondary button
+.ds-button-secondary {
+    @include button-type(#6c757d, #545b62, #4e555b);
+}
+
+// Tertiary button
+.ds-button-tertiary {
+    @include button-type(#6c757d, #545b62, #4e555b);
+}
+
+// Danger button
+.ds-button-danger {
+    @include button-type(#dc3545, #c82333, #bd2130);
+}
+
+// Success button
+.ds-button-success {
+    @include button-type(#28a745, #218838, #1e7e34);
+}
+
+// Warning button
+.ds-button-warning {
+    @include button-type(#ffc107, #e0a800, #d39e00);
+}
+
+// Info button
+.ds-button-info {
+    @include button-type(#17a2b8, #138496, #117a8b);
+}
+
+// Animations
+@keyframes button-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes button-circle {
+    0% {
+        stroke-dashoffset: 60;
+    }
+    50% {
+        stroke-dashoffset: 30;
+    }
+    100% {
+        stroke-dashoffset: 60;
+    }
 }

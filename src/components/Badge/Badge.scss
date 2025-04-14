@@ -1,0 +1,222 @@
+// Badge color variables
+:root {
+    // Base colors
+    --badge-primary-color: #0052cc;
+    --badge-primary-dark: #004099;
+    --badge-secondary-color: #6554c0;
+    --badge-secondary-dark: #4f3fb3;
+    --badge-success-color: #36b37e;
+    --badge-success-dark: #2a8f64;
+    --badge-danger-color: #ff5630;
+    --badge-danger-dark: #e63e1c;
+    --badge-warning-color: #ffab00;
+    --badge-warning-dark: #cc8900;
+    --badge-info-color: #00b8d9;
+    --badge-info-dark: #0093ad;
+    --badge-neutral-color: #42526e;
+    --badge-neutral-dark: #2f3a4f;
+    --badge-purple-color: #6554c0;
+    --badge-purple-dark: #4f3fb3;
+    --badge-cyan-color: #00c7e6;
+    --badge-cyan-dark: #00a0b8;
+    --badge-pink-color: #ff5c93;
+    --badge-pink-dark: #ff297a;
+}
+
+.ds-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+    gap: 4px;
+
+    // Size variants
+    &.size-sm {
+        font-size: 11px;
+        padding: 2px 6px;
+        min-height: 18px;
+
+        .ds-badge-dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        .ds-badge-remove {
+            font-size: 14px;
+        }
+    }
+
+    &.size-md {
+        font-size: 12px;
+        padding: 3px 8px;
+        min-height: 22px;
+
+        .ds-badge-dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .ds-badge-remove {
+            font-size: 16px;
+        }
+    }
+
+    &.size-lg {
+        font-size: 14px;
+        padding: 4px 10px;
+        min-height: 26px;
+
+        .ds-badge-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        .ds-badge-remove {
+            font-size: 18px;
+        }
+    }
+
+    // Shape variants
+    &.pill {
+        border-radius: 100px;
+    }
+
+    &:not(.pill) {
+        border-radius: 4px;
+    }
+
+    // Color variants
+    @mixin badge-variant($color, $dark-color) {
+        --badge-color: #{$color};
+        --badge-color-dark: #{$dark-color};
+        
+        &:not(.outlined):not(.subtle) {
+            background-color: var(--badge-color);
+            color: white;
+
+            &.clickable:hover {
+                background-color: var(--badge-color-dark);
+            }
+        }
+
+        &.outlined {
+            background-color: transparent;
+            color: var(--badge-color);
+            box-shadow: inset 0 0 0 1px var(--badge-color);
+
+            &.clickable:hover {
+                background-color: rgba(0, 0, 0, 0.04);
+            }
+        }
+
+        &.subtle {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: var(--badge-color);
+
+            &.clickable:hover {
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        .ds-badge-dot {
+            background-color: var(--badge-color);
+        }
+    }
+
+    &.variant-primary { @include badge-variant(var(--badge-primary-color), var(--badge-primary-dark)); }
+    &.variant-secondary { @include badge-variant(var(--badge-secondary-color), var(--badge-secondary-dark)); }
+    &.variant-success { @include badge-variant(var(--badge-success-color), var(--badge-success-dark)); }
+    &.variant-danger { @include badge-variant(var(--badge-danger-color), var(--badge-danger-dark)); }
+    &.variant-warning { @include badge-variant(var(--badge-warning-color), var(--badge-warning-dark)); }
+    &.variant-info { @include badge-variant(var(--badge-info-color), var(--badge-info-dark)); }
+    &.variant-neutral { @include badge-variant(var(--badge-neutral-color), var(--badge-neutral-dark)); }
+    &.variant-purple { @include badge-variant(var(--badge-purple-color), var(--badge-purple-dark)); }
+    &.variant-cyan { @include badge-variant(var(--badge-cyan-color), var(--badge-cyan-dark)); }
+    &.variant-pink { @include badge-variant(var(--badge-pink-color), var(--badge-pink-dark)); }
+
+    // Status dot
+    &.with-dot {
+        padding-left: 6px;
+
+        .ds-badge-dot {
+            display: inline-block;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+    }
+
+    // Icons
+    .ds-badge-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &.right {
+            margin-left: 2px;
+        }
+    }
+
+    // Remove button
+    .ds-badge-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin-left: 2px;
+        margin-right: -4px;
+        background: none;
+        border: none;
+        color: currentColor;
+        opacity: 0.7;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &:focus {
+            outline: none;
+            opacity: 1;
+        }
+    }
+
+    // Clickable state
+    &.clickable {
+        cursor: pointer;
+        user-select: none;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    :root {
+        --badge-neutral-color: #8f9baf;
+        --badge-neutral-dark: #6b778c;
+    }
+
+    .ds-badge {
+        &.subtle {
+            background-color: rgba(255, 255, 255, 0.06);
+
+            &.clickable:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        &.outlined {
+            &.clickable:hover {
+                background-color: rgba(255, 255, 255, 0.06);
+            }
+        }
+    }
+} 
