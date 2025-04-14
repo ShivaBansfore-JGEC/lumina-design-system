@@ -19,6 +19,7 @@
     "@storybook/react-webpack5": "^7.6.13",
     "@storybook/test": "^7.6.13",
     "@types/react": "^18.2.55",
+    "@types/react-icons": "^3.0.0",
     "babel-preset-react-app": "^10.0.1",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.17",
-    "classnames": "^2.5.1"
+    "classnames": "^2.5.1",
+    "date-fns": "^4.1.0"
   }
 }
