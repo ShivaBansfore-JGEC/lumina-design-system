@@ -1,163 +1,408 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import { LabelTable, LabelTableProps } from './LabelTable';
+import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { LabelTable } from './LabelTable';
 
-interface ExampleData {
-    id: string;
-    name: string;
-    status: 'open' | 'in-progress' | 'done';
-    priority: 'low' | 'medium' | 'high';
-    assignee: string;
-    created: string;
-    updated: string;
-}
-
-const mockData: ExampleData[] = [
-    {
-        id: 'TASK-1',
-        name: 'Implement authentication',
-        status: 'in-progress',
-        priority: 'high',
-        assignee: 'John Doe',
-        created: '2024-01-15',
-        updated: '2024-01-20',
-    },
-    {
-        id: 'TASK-2',
-        name: 'Design system updates',
-        status: 'open',
-        priority: 'medium',
-        assignee: 'Jane Smith',
-        created: '2024-01-16',
-        updated: '2024-01-16',
-    },
-    {
-        id: 'TASK-3',
-        name: 'Bug fixes for release',
-        status: 'done',
-        priority: 'high',
-        assignee: 'Mike Johnson',
-        created: '2024-01-14',
-        updated: '2024-01-19',
-    },
-];
-
-const statusColors = {
-    'open': '#0052cc',
-    'in-progress': '#ff991f',
-    'done': '#36b37e',
+// Sample data
+const generateData = (count: number) => {
+    return Array.from({ length: count }, (_, i) => ({
+        id: `id-${i}`,
+        name: `Item ${i + 1}`,
+        status: i % 3 === 0 ? 'Active' : i % 3 === 1 ? 'Pending' : 'Inactive',
+        category: i % 4 === 0 ? 'A' : i % 4 === 1 ? 'B' : i % 4 === 2 ? 'C' : 'D',
+        date: new Date(2023, 0, i + 1).toLocaleDateString(),
+        value: Math.floor(Math.random() * 1000),
+        description: `This is a description for item ${i + 1}`,
+    }));
 };
 
-const priorityIcons = {
-    'low': '↓',
-    'medium': '→',
-    'high': '↑',
-};
-
-export default {
+const meta: Meta<typeof LabelTable> = {
     title: 'Components/LabelTable',
     component: LabelTable,
     parameters: {
         layout: 'padded',
     },
-} as Meta;
-
-const Template: Story<LabelTableProps<ExampleData>> = (args) => <LabelTable {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-    data: mockData,
-    columns: [
-        {
-            id: 'id',
-            label: 'ID',
-            accessor: 'id',
-            width: '100px',
-        },
-        {
-            id: 'name',
-            label: 'Name',
-            accessor: 'name',
-            sortable: true,
-            filterable: true,
-        },
-        {
-            id: 'status',
-            label: 'Status',
-            accessor: 'status',
-            sortable: true,
-            filterable: true,
-            width: '120px',
-            renderCell: (value) => (
-                <span style={{
-                    display: 'inline-block',
-                    padding: '2px 8px',
-                    borderRadius: '3px',
-                    backgroundColor: statusColors[value as keyof typeof statusColors],
-                    color: 'white',
-                    fontSize: '12px',
-                }}>
-                    {value}
-                </span>
-            ),
-        },
-        {
-            id: 'priority',
-            label: 'Priority',
-            accessor: 'priority',
-            sortable: true,
-            width: '100px',
-            renderCell: (value) => (
-                <span style={{ color: value === 'high' ? '#ff5630' : value === 'medium' ? '#ff991f' : '#6b778c' }}>
-                    {priorityIcons[value as keyof typeof priorityIcons]} {value}
-                </span>
-            ),
-        },
-        {
-            id: 'assignee',
-            label: 'Assignee',
-            accessor: 'assignee',
-            sortable: true,
-            filterable: true,
-        },
-        {
-            id: 'created',
-            label: 'Created',
-            accessor: 'created',
-            sortable: true,
-            width: '120px',
-            align: 'right',
-        },
-        {
-            id: 'updated',
-            label: 'Updated',
-            accessor: 'updated',
-            sortable: true,
-            width: '120px',
-            align: 'right',
-        },
-    ],
-    defaultSortBy: { id: 'updated', desc: true },
-    onRowClick: (row) => console.log('Clicked row:', row),
+    tags: ['autodocs'],
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-    ...Default.args,
-    loading: true,
+export default meta;
+type Story = StoryObj<typeof LabelTable>;
+
+// Basic table
+export const Basic: Story = {
+    args: {
+        data: generateData(10),
+        columns: [
+            { id: 'name', label: 'Name', accessor: 'name', sortable: true },
+            { id: 'status', label: 'Status', accessor: 'status', sortable: true },
+            { id: 'category', label: 'Category', accessor: 'category', sortable: true },
+            { id: 'date', label: 'Date', accessor: 'date', sortable: true },
+            { id: 'value', label: 'Value', accessor: 'value', sortable: true },
+        ],
+    },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-    ...Default.args,
-    data: [],
-    emptyMessage: 'No tasks found',
+// Table with pagination
+export const WithPagination: Story = {
+    render: (args) => {
+        const [currentPage, setCurrentPage] = useState(1);
+        const [pageSize, setPageSize] = useState(10);
+        const data = generateData(100);
+
+        return (
+            <LabelTable
+                {...args}
+                data={data}
+                columns={[
+                    { id: 'name', label: 'Name', accessor: 'name', sortable: true },
+                    { id: 'status', label: 'Status', accessor: 'status', sortable: true },
+                    { id: 'category', label: 'Category', accessor: 'category', sortable: true },
+                    { id: 'date', label: 'Date', accessor: 'date', sortable: true },
+                    { id: 'value', label: 'Value', accessor: 'value', sortable: true },
+                ]}
+                pagination={{
+                    currentPage,
+                    pageSize,
+                    totalItems: data.length,
+                    pageSizeOptions: [5, 10, 20, 50],
+                    onPageChange: setCurrentPage,
+                    onPageSizeChange: setPageSize,
+                }}
+            />
+        );
+    },
 };
 
-export const StickyHeader = Template.bind({});
-StickyHeader.args = {
-    ...Default.args,
-    stickyHeader: true,
-    maxHeight: '400px',
-    data: [...mockData, ...mockData, ...mockData], // Duplicate data for scrolling
+// Table with fixed columns
+export const WithFixedColumns: Story = {
+    args: {
+        data: generateData(20),
+        columns: [
+            {
+                id: 'name',
+                label: 'Name',
+                accessor: 'name',
+                sortable: true,
+                fixed: 'left',
+                width: '150px',
+            },
+            { id: 'status', label: 'Status', accessor: 'status', sortable: true },
+            { id: 'category', label: 'Category', accessor: 'category', sortable: true },
+            { id: 'date', label: 'Date', accessor: 'date', sortable: true },
+            { id: 'value', label: 'Value', accessor: 'value', sortable: true },
+            {
+                id: 'actions',
+                label: 'Actions',
+                accessor: 'id',
+                fixed: 'right',
+                width: '100px',
+                renderCell: (value) => (
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </div>
+                ),
+            },
+        ],
+    },
+};
+
+// Table with resizable columns
+export const WithResizableColumns: Story = {
+    args: {
+        data: generateData(15),
+        columns: [
+            {
+                id: 'name',
+                label: 'Name',
+                accessor: 'name',
+                sortable: true,
+                resizable: true,
+                width: '150px',
+            },
+            {
+                id: 'status',
+                label: 'Status',
+                accessor: 'status',
+                sortable: true,
+                resizable: true,
+                width: '120px',
+            },
+            {
+                id: 'category',
+                label: 'Category',
+                accessor: 'category',
+                sortable: true,
+                resizable: true,
+                width: '100px',
+            },
+            {
+                id: 'date',
+                label: 'Date',
+                accessor: 'date',
+                sortable: true,
+                resizable: true,
+                width: '120px',
+            },
+            {
+                id: 'value',
+                label: 'Value',
+                accessor: 'value',
+                sortable: true,
+                resizable: true,
+                width: '100px',
+            },
+        ],
+    },
+};
+
+// Table with all features
+export const AllFeatures: Story = {
+    render: (args) => {
+        const [currentPage, setCurrentPage] = useState(1);
+        const [pageSize, setPageSize] = useState(10);
+        const data = generateData(100);
+
+        return (
+            <LabelTable
+                {...args}
+                data={data}
+                columns={[
+                    {
+                        id: 'name',
+                        label: 'Name',
+                        accessor: 'name',
+                        sortable: true,
+                        fixed: 'left',
+                        resizable: true,
+                        width: '150px',
+                    },
+                    {
+                        id: 'status',
+                        label: 'Status',
+                        accessor: 'status',
+                        sortable: true,
+                        resizable: true,
+                        width: '120px',
+                    },
+                    {
+                        id: 'category',
+                        label: 'Category',
+                        accessor: 'category',
+                        sortable: true,
+                        resizable: true,
+                        width: '100px',
+                    },
+                    {
+                        id: 'date',
+                        label: 'Date',
+                        accessor: 'date',
+                        sortable: true,
+                        resizable: true,
+                        width: '120px',
+                    },
+                    {
+                        id: 'value',
+                        label: 'Value',
+                        accessor: 'value',
+                        sortable: true,
+                        resizable: true,
+                        width: '100px',
+                    },
+                    {
+                        id: 'actions',
+                        label: 'Actions',
+                        accessor: 'id',
+                        fixed: 'right',
+                        width: '100px',
+                        renderCell: (value) => (
+                            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </div>
+                        ),
+                    },
+                ]}
+                pagination={{
+                    currentPage,
+                    pageSize,
+                    totalItems: data.length,
+                    pageSizeOptions: [5, 10, 20, 50],
+                    onPageChange: setCurrentPage,
+                    onPageSizeChange: setPageSize,
+                }}
+            />
+        );
+    },
+};
+
+// Table with custom cell rendering
+export const WithCustomCells: Story = {
+    args: {
+        data: generateData(10),
+        columns: [
+            { id: 'name', label: 'Name', accessor: 'name', sortable: true },
+            {
+                id: 'status',
+                label: 'Status',
+                accessor: 'status',
+                sortable: true,
+                renderCell: (value) => (
+                    <span style={{
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        backgroundColor: value === 'Active' ? '#e3fcef' : value === 'Pending' ? '#fff7e6' : '#ffe6e6',
+                        color: value === 'Active' ? '#00875a' : value === 'Pending' ? '#974f0c' : '#de350b',
+                    }}>
+                        {value}
+                    </span>
+                ),
+            },
+            { id: 'category', label: 'Category', accessor: 'category', sortable: true },
+            { id: 'date', label: 'Date', accessor: 'date', sortable: true },
+            {
+                id: 'value',
+                label: 'Value',
+                accessor: 'value',
+                sortable: true,
+                align: 'right',
+                renderCell: (value) => (
+                    <span style={{ fontWeight: 'bold' }}>
+                        ${value.toLocaleString()}
+                    </span>
+                ),
+            },
+        ],
+    },
+};
+
+// Add a story for search functionality
+export const WithSearch: Story = {
+    args: {
+        columns: [
+            { id: 'id', label: 'ID', sortable: true, accessor: (row: any) => row.id },
+            { id: 'name', label: 'Name', sortable: true, accessor: (row: any) => row.name },
+            { id: 'status', label: 'Status', sortable: true, accessor: (row: any) => row.status },
+            { id: 'value', label: 'Value', sortable: true, accessor: (row: any) => row.value },
+        ],
+        data: generateData(100),
+        search: {
+            placeholder: 'Search by name or status...',
+            searchableFields: ['name', 'status'],
+            debounceTime: 300,
+        },
+    },
+};
+
+// Add a story for dynamic search with custom handler
+export const WithDynamicSearch: Story = {
+    args: {
+        columns: [
+            { id: 'id', label: 'ID', sortable: true, accessor: (row: any) => row.id },
+            { id: 'name', label: 'Name', sortable: true, accessor: (row: any) => row.name },
+            { id: 'status', label: 'Status', sortable: true, accessor: (row: any) => row.status },
+            { id: 'value', label: 'Value', sortable: true, accessor: (row: any) => row.value },
+        ],
+        data: generateData(100),
+        search: {
+            placeholder: 'Search...',
+            searchableFields: ['name', 'status'],
+            debounceTime: 500,
+            onSearch: (term) => {
+                console.log('Searching for:', term);
+                // In a real application, this would make an API call
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(true);
+                    }, 500);
+                });
+            },
+        },
+    },
+};
+
+export const WithVerticalBorders: Story = {
+    args: {
+        columns: [
+            { id: 'name', label: 'Name', sortable: true, accessor: 'name' },
+            { id: 'age', label: 'Age', sortable: true, accessor: 'age' },
+            { id: 'email', label: 'Email', sortable: true, accessor: 'email' },
+            { id: 'status', label: 'Status', sortable: true, accessor: 'status' },
+            { id: 'value', label: 'Value', sortable: true, accessor: 'value' },
+        ],
+        data: generateData(100),
+        showVerticalBorders: true,
+    },
+};
+
+export const WithHorizontalScroll: Story = {
+    args: {
+        columns: [
+            { id: 'name', label: 'Name', sortable: true, accessor: 'name' },
+            { id: 'age', label: 'Age', sortable: true, accessor: 'age' },
+            { id: 'email', label: 'Email', sortable: true, accessor: 'email' },
+            { id: 'status', label: 'Status', sortable: true, accessor: 'status' },
+            { id: 'value', label: 'Value', sortable: true, accessor: 'value' },
+            { id: 'department', label: 'Department', sortable: true, accessor: 'department' },
+            { id: 'position', label: 'Position', sortable: true, accessor: 'position' },
+            { id: 'salary', label: 'Salary', sortable: true, accessor: 'salary' },
+            { id: 'joinDate', label: 'Join Date', sortable: true, accessor: 'joinDate' },
+            { id: 'location', label: 'Location', sortable: true, accessor: 'location' },
+        ],
+        data: generateData(100),
+        horizontalScroll: true,
+    },
+};
+
+export const WithColumnSelector: Story = {
+    args: {
+        columns: [
+            { id: 'name', label: 'Name', sortable: true, accessor: 'name' },
+            { id: 'age', label: 'Age', sortable: true, accessor: 'age' },
+            { id: 'email', label: 'Email', sortable: true, accessor: 'email' },
+            { id: 'status', label: 'Status', sortable: true, accessor: 'status' },
+            { id: 'value', label: 'Value', sortable: true, accessor: 'value' },
+            { id: 'department', label: 'Department', sortable: true, accessor: 'department' },
+            { id: 'position', label: 'Position', sortable: true, accessor: 'position' },
+            { id: 'salary', label: 'Salary', sortable: true, accessor: 'salary' },
+            { id: 'joinDate', label: 'Join Date', sortable: true, accessor: 'joinDate' },
+            { id: 'location', label: 'Location', sortable: true, accessor: 'location' },
+        ],
+        data: generateData(100),
+        columnSelector: {
+            enabled: true,
+            allowColumnHiding: true,
+            allowColumnReordering: true,
+            onColumnsChange: (columns) => {
+                console.log('Columns changed:', columns);
+            },
+        },
+    },
+};
+
+export const WithColumnSelectorAndSearch: Story = {
+    args: {
+        columns: [
+            { id: 'name', label: 'Name', sortable: true, accessor: 'name' },
+            { id: 'age', label: 'Age', sortable: true, accessor: 'age' },
+            { id: 'email', label: 'Email', sortable: true, accessor: 'email' },
+            { id: 'status', label: 'Status', sortable: true, accessor: 'status' },
+            { id: 'value', label: 'Value', sortable: true, accessor: 'value' },
+            { id: 'department', label: 'Department', sortable: true, accessor: 'department' },
+            { id: 'position', label: 'Position', sortable: true, accessor: 'position' },
+            { id: 'salary', label: 'Salary', sortable: true, accessor: 'salary' },
+            { id: 'joinDate', label: 'Join Date', sortable: true, accessor: 'joinDate' },
+            { id: 'location', label: 'Location', sortable: true, accessor: 'location' },
+        ],
+        data: generateData(100),
+        columnSelector: {
+            enabled: true,
+            allowColumnHiding: true,
+            allowColumnReordering: true,
+        },
+        search: {
+            placeholder: 'Search...',
+            searchableFields: ['name', 'email', 'department', 'position'],
+            debounceTime: 300,
+        },
+    },
 }; 

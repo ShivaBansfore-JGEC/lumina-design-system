@@ -34,12 +34,19 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     style,
 }) => {
     const [isChecked, setIsChecked] = React.useState(checked ?? defaultChecked);
+    const checkboxRef = React.useRef<HTMLInputElement>(null);
 
     React.useEffect(() => {
         if (checked !== undefined) {
             setIsChecked(checked);
         }
     }, [checked]);
+
+    React.useEffect(() => {
+        if (checkboxRef.current) {
+            checkboxRef.current.indeterminate = indeterminate;
+        }
+    }, [indeterminate]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (checked === undefined) {
@@ -54,20 +61,17 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                 [`ds-checkbox--${size}`]: size,
                 [`ds-checkbox--${variant}`]: variant,
                 'ds-checkbox--error': error,
+                'ds-checkbox--disabled': disabled,
             })}
             style={style}
         >
             <label className="ds-checkbox-label">
                 <input
                     type="checkbox"
+                    ref={checkboxRef}
                     checked={isChecked}
                     disabled={disabled}
                     onChange={handleChange}
-                    ref={(input) => {
-                        if (input) {
-                            input.indeterminate = indeterminate;
-                        }
-                    }}
                 />
                 {label && <span className="ds-checkbox-text">{label}</span>}
             </label>

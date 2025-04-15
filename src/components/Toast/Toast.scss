@@ -1,0 +1,261 @@
+// Variables
+$toast-bg: #fff;
+$toast-border-radius: 8px;
+$toast-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+$toast-padding: 16px;
+$toast-margin: 16px;
+$toast-min-width: 300px;
+$toast-max-width: 500px;
+$toast-z-index: 1000;
+$toast-transition-duration: 0.3s;
+
+// Colors
+$toast-success-bg: #f0f9eb;
+$toast-success-color: #67c23a;
+$toast-success-border: #e1f3d8;
+
+$toast-error-bg: #fef0f0;
+$toast-error-color: #f56c6c;
+$toast-error-border: #fde2e2;
+
+$toast-warning-bg: #fdf6ec;
+$toast-warning-color: #e6a23c;
+$toast-warning-border: #faecd8;
+
+$toast-info-bg: #f4f4f5;
+$toast-info-color: #909399;
+$toast-info-border: #ebeef5;
+
+// Animations
+@keyframes toast-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-in-top {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-in-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Base styles
+.ds-toast {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  min-width: $toast-min-width;
+  max-width: $toast-max-width;
+  background-color: $toast-bg;
+  border-radius: $toast-border-radius;
+  box-shadow: $toast-box-shadow;
+  padding: $toast-padding;
+  margin: $toast-margin;
+  z-index: $toast-z-index;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  // Position variants
+  &--top-right {
+    top: 0;
+    right: 0;
+    animation: toast-in-right $toast-transition-duration ease-in-out;
+  }
+  
+  &--top-left {
+    top: 0;
+    left: 0;
+    animation: toast-in-left $toast-transition-duration ease-in-out;
+  }
+  
+  &--bottom-right {
+    bottom: 0;
+    right: 0;
+    animation: toast-in-bottom $toast-transition-duration ease-in-out;
+  }
+  
+  &--bottom-left {
+    bottom: 0;
+    left: 0;
+    animation: toast-in-bottom $toast-transition-duration ease-in-out;
+  }
+  
+  &--top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: toast-in-top $toast-transition-duration ease-in-out;
+  }
+  
+  &--bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: toast-in-bottom $toast-transition-duration ease-in-out;
+  }
+  
+  // Type variants
+  &--success {
+    background-color: $toast-success-bg;
+    border-left: 4px solid $toast-success-color;
+    
+    .ds-toast__icon {
+      color: $toast-success-color;
+    }
+    
+    .ds-toast__progress-bar {
+      background-color: $toast-success-color;
+    }
+  }
+  
+  &--error {
+    background-color: $toast-error-bg;
+    border-left: 4px solid $toast-error-color;
+    
+    .ds-toast__icon {
+      color: $toast-error-color;
+    }
+    
+    .ds-toast__progress-bar {
+      background-color: $toast-error-color;
+    }
+  }
+  
+  &--warning {
+    background-color: $toast-warning-bg;
+    border-left: 4px solid $toast-warning-color;
+    
+    .ds-toast__icon {
+      color: $toast-warning-color;
+    }
+    
+    .ds-toast__progress-bar {
+      background-color: $toast-warning-color;
+    }
+  }
+  
+  &--info {
+    background-color: $toast-info-bg;
+    border-left: 4px solid $toast-info-color;
+    
+    .ds-toast__icon {
+      color: $toast-info-color;
+    }
+    
+    .ds-toast__progress-bar {
+      background-color: $toast-info-color;
+    }
+  }
+  
+  // Content
+  &__content {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  // Icon
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  
+  // Message
+  &__message {
+    flex: 1;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  // Action
+  &__action {
+    margin-left: 12px;
+    flex-shrink: 0;
+  }
+  
+  // Close button
+  &__close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 12px;
+    color: #999;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: #333;
+    }
+    
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  // Progress bar
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  &__progress-bar {
+    height: 100%;
+    transition: width 0.1s linear;
+  }
+}
+
+// Responsive styles
+@media (max-width: 576px) {
+  .ds-toast {
+    min-width: auto;
+    width: calc(100% - 32px);
+    margin: 16px;
+    
+    &--top-center,
+    &--bottom-center {
+      left: 16px;
+      right: 16px;
+      transform: none;
+    }
+  }
+} 

@@ -51,6 +51,7 @@ $checkbox-text-color-error: #ef4444;
         &:checked {
             background-color: $checkbox-background-color-checked;
             border-color: $checkbox-border-color-checked;
+            border-width: 0;
 
             &::after {
                 content: '';
@@ -62,12 +63,15 @@ $checkbox-text-color-error: #ef4444;
                 height: 10px;
                 border: solid white;
                 border-width: 0 2px 2px 0;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             }
         }
 
         &:indeterminate {
             background-color: $checkbox-background-color-checked;
             border-color: $checkbox-border-color-checked;
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
             &::after {
                 content: '';
@@ -78,6 +82,7 @@ $checkbox-text-color-error: #ef4444;
                 width: 10px;
                 height: 2px;
                 background-color: white;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -136,43 +141,55 @@ $checkbox-text-color-error: #ef4444;
     // Variant colors
     &--primary {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-primary-color);
-            border-color: var(--ds-primary-color);
+            background-color: var(--ds-primary-color, #3b82f6);
+            border-color: var(--ds-primary-color, #3b82f6);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
         }
     }
 
     &--secondary {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-secondary-color);
-            border-color: var(--ds-secondary-color);
+            background-color: var(--ds-secondary-color, #6b7280);
+            border-color: var(--ds-secondary-color, #6b7280);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
         }
     }
 
     &--success {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-success-color);
-            border-color: var(--ds-success-color);
+            background-color: var(--ds-success-color, #10b981);
+            border-color: var(--ds-success-color, #10b981);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
         }
     }
 
     &--danger {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-danger-color);
-            border-color: var(--ds-danger-color);
+            background-color: var(--ds-danger-color, #ef4444);
+            border-color: var(--ds-danger-color, #ef4444);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
         }
     }
 
     &--warning {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-warning-color);
-            border-color: var(--ds-warning-color);
+            background-color: var(--ds-warning-color, #f59e0b);
+            border-color: var(--ds-warning-color, #f59e0b);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
         }
     }
 
     &--info {
         input[type="checkbox"]:checked {
-            background-color: var(--ds-info-color);
-            border-color: var(--ds-info-color);
+            background-color: var(--ds-info-color, #3b82f6);
+            border-color: var(--ds-info-color, #3b82f6);
+            border-width: 0;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
         }
     }
 
