@@ -1,0 +1,154 @@
+// Variables
+$pagination-border-radius: 0.375rem;
+$pagination-transition: all 0.2s ease-in-out;
+
+// Sizes
+$pagination-sizes: (
+  small: (
+    button-size: 2rem,
+    font-size: 0.75rem,
+    padding: 0.25rem,
+  ),
+  medium: (
+    button-size: 2.5rem,
+    font-size: 0.875rem,
+    padding: 0.5rem,
+  ),
+  large: (
+    button-size: 3rem,
+    font-size: 1rem,
+    padding: 0.75rem,
+  ),
+);
+
+// Colors
+$pagination-colors: (
+  primary: (
+    background: var(--primary-color, #3182ce),
+    hover: var(--primary-hover-color, #2c5282),
+    text: var(--white-color, #ffffff),
+  ),
+  secondary: (
+    background: var(--secondary-color, #718096),
+    hover: var(--secondary-hover-color, #4a5568),
+    text: var(--white-color, #ffffff),
+  ),
+  success: (
+    background: var(--success-color, #48bb78),
+    hover: var(--success-hover-color, #2f855a),
+    text: var(--white-color, #ffffff),
+  ),
+  danger: (
+    background: var(--danger-color, #e53e3e),
+    hover: var(--danger-hover-color, #9b2c2c),
+    text: var(--white-color, #ffffff),
+  ),
+  warning: (
+    background: var(--warning-color, #ed8936),
+    hover: var(--warning-hover-color, #c05621),
+    text: var(--white-color, #ffffff),
+  ),
+  info: (
+    background: var(--info-color, #4299e1),
+    hover: var(--info-hover-color, #2b6cb0),
+    text: var(--white-color, #ffffff),
+  ),
+);
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: $pagination-border-radius;
+    background-color: var(--background-color, #ffffff);
+    color: var(--text-color, #1a202c);
+    font-weight: 400;
+    cursor: pointer;
+    transition: $pagination-transition;
+
+    &:hover:not(:disabled) {
+      background-color: var(--hover-color, #f7fafc);
+      border-color: var(--primary-color, #3182ce);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color, #3182ce);
+      outline-offset: 2px;
+    }
+
+    &--active {
+      font-weight: 600;
+    }
+
+    &--ellipsis {
+      color: var(--text-color, #1a202c);
+    }
+  }
+
+  &__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color, #1a202c);
+  }
+}
+
+// Size variants
+@each $size, $values in $pagination-sizes {
+  .pagination--#{$size} {
+    .pagination__button {
+      min-width: map-get($values, button-size);
+      height: map-get($values, button-size);
+      padding: map-get($values, padding);
+      font-size: map-get($values, font-size);
+    }
+
+    .pagination__ellipsis {
+      min-width: map-get($values, button-size);
+      height: map-get($values, button-size);
+      font-size: map-get($values, font-size);
+    }
+  }
+}
+
+// Color variants
+@each $variant, $colors in $pagination-colors {
+  .pagination--#{$variant} {
+    .pagination__button--active {
+      background-color: map-get($colors, background);
+      color: map-get($colors, text);
+      border-color: map-get($colors, background);
+
+      &:hover:not(:disabled) {
+        background-color: map-get($colors, hover);
+      }
+    }
+  }
+} 
